@@ -118,7 +118,22 @@ label.star:hover {
 label.star:before {
     content: '\f006';
     font-family: FontAwesome;
+}
 
+.primaryBtn {
+    background-color: #C70043 !important;
+    padding: 10px !important;
+    border: none !important;
+}
+
+.primaryBtnForm {
+    background-color: #C70043 !important;
+    padding: 10px 30px !important;
+    border: none !important;
+}
+
+.star-col {
+    width: 60%;
 }
 
 /*Mobile App Block*/
@@ -168,7 +183,6 @@ label.star:before {
     height: 550px !important;
     overflow-y: scroll;
     overflow-x: hidden;
-    border-radius: 0px 0px 21px 21px;
 }
 
 .mbl-inner-block {
@@ -181,7 +195,6 @@ input.nosubmit {
     padding: 10px 30px 10px 10px !important;
     font-size: 14px !important;
     border-radius: 5px;
-
 }
 
 form.nosubmit {
@@ -240,7 +253,6 @@ input[type="search"]::placeholder {
 
 .restaurants_block {
     padding: 10px;
-    border-radius: 0px 0px 21px 21px !important;
 }
 
 .restaurant_row {
@@ -258,8 +270,14 @@ input[type="search"]::placeholder {
     font-size: 11px;
 }
 
+.restaurant_details_inner .fa-star {
+    color: #c70043;
+}
+
 .restaurant_row img {
     border-radius: 8px !important;
+    width: 100%;
+    height: 80px !important;
 }
 
 .res-title {
@@ -272,6 +290,85 @@ input[type="search"]::placeholder {
     background-color: #eee !important;
     color: #eee !important;
     border: 1px solid !important;
+}
+
+
+.detailedView {
+    height: 650px;
+    min-height: 450px;
+    overflow-x: hidden;
+}
+
+.detailedView .container-fluid {
+    padding: 15px;
+    box-shadow: none !important;
+}
+
+.restaurants_block a {
+    text-decoration: none;
+}
+
+.restaurants_block a:hover {
+    color: inherit;
+    text-decoration: none !important;
+}
+
+.recommended-block {
+    padding: 10px;
+}
+
+.recommended-block h3 {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.recommended-block .card {
+    width: 190px;
+    border-radius: 17px;
+    padding: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.recommended-block .card-body {
+    padding: 10px !important;
+}
+
+.detailedView .restaurants_block {
+    border-radius: 0 !important;
+}
+
+.menu-nav-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 1;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    border-radius: 0px 0px 21px 21px;
+    list-style: none;
+    padding-left: 0px !important;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.menu-nav-bar li {
+    padding: 10px 10px;
+    line-height: 20px;
+}
+
+.menu-nav-bar span {
+    color: #4d4d4d;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.menu-nav-bar i {
+    color: #b7b7b7;
+    font-size: 21px;
+    font-weight: 1000;
 }
 
 /* Footer */
@@ -352,14 +449,65 @@ input[type="search"]::placeholder {
     font-weight: 700;
 }
 
-.primaryBtn {
-    background-color: #C70043 !important;
-    padding: 10px !important;
-    border: none !important;
+.appNowBtn {
+    font-family: "Open", Sans-serif;
+    font-size: 19.5px;
+    color: #FFFFFF;
+    background-color: #C70043;
+    box-shadow: 0px 0px 10px 0px rgb(239 236 236 / 50%) !important;
+    border-style: none;
+    padding: 20px 30px 20px 30px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 25px;
 }
 
-.primaryBtnForm {
+.appNowBtn:hover,
+.appNowBtn:focus,
+.appNowBtn:focus-visible,
+.appNowBtn:focus-within {
     background-color: #C70043 !important;
-    padding: 10px 30px !important;
-    border: none !important;
+}
+
+.mobileMockUp.rotate {
+    transform: rotate(-18deg);
+    margin-top: -2%;
+    filter: grayscale(0.8);
+}
+
+.mobileMockUp.mobileMockupAnim {
+    animation-name: cssAnimation;
+    animation-duration: 3s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: cssAnimation;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes cssAnimation {
+    from {
+        -webkit-transform: rotate(-18deg);
+        transform: rotate(-18deg);
+    }
+
+    to {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+}
+
+/* Mobile CSS */
+@media only screen and (max-width: 600px) {
+    .food-items-block {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    label.star {
+        font-size: 18px !important;
+    }
 }

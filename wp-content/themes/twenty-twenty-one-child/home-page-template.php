@@ -15,6 +15,7 @@ while ( have_posts() ) :
     }
 endwhile; // End of the loop.
 ?>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 <section class="add_restaurants_section">
     <div class="container ">
         <div class="row justify-content-center">
@@ -35,7 +36,7 @@ endwhile; // End of the loop.
                             </div>
                             <div class="form-group form_row">
                                 <label>Please rate the Restaurant on the scale of 1-5 stars!</label>
-                                <div style="width:60%">
+                                <div class="star-col">
                                     <input class="star star-5" id="star-5" type="radio" name="restaurants_rating"
                                         value="5" />
                                     <label class="star star-5" for="star-5"></label>
@@ -103,17 +104,38 @@ endwhile; // End of the loop.
         </div>
     </div>
 </section>
-
 <script>
+jQuery(document).ready(function() {
+    $('.mobileMockUp').addClass('rotate');
+    $(".mobileMockUp").off('click');
+    $('#useAppNow').click(function() {
+        $('.mobileMockUp').removeClass('rotate');
+        $('.mobileMockUp').addClass('mobileMockupAnim');
+    });
+});
+
 function detailViewBlock(res_id) {
     $.ajax({
         type: 'POST',
-        url: '/pesto/wp-content/functions.php/show_restaurant_detail/' + res_id,
-        data: 'datastring',
-        success: function(response) {
-            console.log(response);
+        url: "<?php echo admin_url('admin-ajax.php');?>",
+        data: {
+            'res_id': res_id,
+            action: 'show_restaurant_detail',
+        },
+        dataType: "json",
+        success: function(data) {
+            jQuery('.mbl-app-section.detailedView').css('display', 'block');
+            jQuery('.mbl-app-section.detailedView').html(data);
+            jQuery('.mbl-app-section.main').css('display', 'none');
+            jQuery('.footer-nav').css('display', 'none');
         }
     });
+}
+
+function backtohome() {
+    jQuery('.mbl-app-section.detailedView').css('display', 'none');
+    jQuery('.mbl-app-section.main').css('display', 'block');
+    jQuery('.footer-nav').css('display', 'block');
 }
 </script>
 

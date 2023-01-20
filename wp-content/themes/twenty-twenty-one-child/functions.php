@@ -93,7 +93,7 @@ function show_all_restaurants(){
 	{         
 		$content .='<div class="bg-white restaurants_block">';
 	    foreach($results as $row){  
-	    	$content .= '<a href="javascript:void(0)" onClick="detailViewBlock('.$row->id.')"><div class="restaurant_row"><img src="wp-content/uploads/restaurant_images/'.$row->restaurant_image_path.'"><div class="restaurant_details"><p class="res-title">'.$row->restaurant_name.'</p><p>South Indian</p><hr/><div class="restaurant_details_inner"><p><i class="fa fa-star"></i> '.$row->restaurants_rating.'</p><p><i class="fa fa-clock-o" aria-hidden="true"></i> 45mins</p><p><i class="fa fa-money" aria-hidden="true"></i> 199 for two</p></div></div></div></a>';
+	    	$content .= '<a href="javascript:void(0)" onClick="detailViewBlock('.$row->id.')"><div class="restaurant_row"><img class="resturant_image" src="wp-content/uploads/restaurant_images/'.$row->restaurant_image_path.'"><div class="restaurant_details"><p class="res-title">'.$row->restaurant_name.'</p><p>South Indian</p><hr/><div class="restaurant_details_inner"><p><i class="fa fa-star"></i> '.$row->restaurants_rating.'</p><p><i class="fa fa-clock-o" aria-hidden="true"></i> 45mins</p><p><i class="fa fa-money" aria-hidden="true"></i> 199 for two</p></div></div></div></a>';
 	    }
 	    $content .="</div>";
 	}else{
@@ -105,11 +105,51 @@ function show_all_restaurants(){
 
 add_shortcode('show_all_restaurants', 'show_all_restaurants');
 
-function show_restaurant_detail($id){
+function show_restaurant_detail(){
 	global $wpdb;
-	$results = $wpdb->get_results( "SELECT * FROM wp_add_restaurants WHERE id=".$id); 
-	print_r($results);
+	$results = $wpdb->get_results( "SELECT * FROM wp_add_restaurants WHERE id=".$_POST['res_id']); 
+	// print_r($results);
+	$returnArray = array();
+	$content = '';	
+	if(!empty($results[0]))                        
+	{         
+		$content .='<div class="bg-white mbl-logo container-fluid">
+		<div class="row">
+			<div class="col-md-8"><a href="javascript:void(0)" onClick="backtohome()"><i class="fa fa-chevron-left"
+						aria-hidden="true"></i></a></div>
+			<div class="col-md-2"><a href="javascript:void(0)" onClick="backtohome()"><i class="fa fa-home"
+						aria-hidden="true"></i></a></div>
+			<div class="col-md-2"><a href="javascript:void(0)"><i class="fa fa-share-alt"
+						aria-hidden="true"></i></a></div>
+		</div>
+	</div>';
+	    $content .= '<div class="bg-white restaurants_block">
+		<div class="restaurant_row mt-0"><img
+				src="wp-content/uploads/restaurant_images/'.$results[0]->restaurant_image_path.'">
+			<div class="restaurant_details">
+				<p class="res-title">'.$results[0]->restaurant_name.'</p>
+				<p>South Indian</p>
+				<hr />
+				<div class="restaurant_details_inner">
+					<p><i class="fa fa-star"></i> '.$results[0]->restaurants_rating.'</p>
+					<p><i class="fa fa-clock-o" aria-hidden="true"></i> 45mins</p>
+					<p><i class="fa fa-money" aria-hidden="true"></i> 199 for two</p>
+				</div>
+			</div>
+		</div>
+	</div>';
+	    $content .='<div class="recommended-block"><h3>Recommended</h3><div class="card">
+		<img class="card-img-top" src="wp-content/uploads/2023/01/16691778421s62WWzHUO.jpg" alt="Card image cap">
+		<div class="card-body"><p class="card-text" style="font-size:12px;font-weight:700"><img src="http://localhost/pesto/wp-content/uploads/2023/01/non-veg-icon-bg.png" width="12px"> CHICKEN BIRIYANI</p><p style="font-size:12px; class="card-text" >₹ 185.00</p></div></div></div>';
+	}
+	//$returnArray = array('html' => $content);
+	
+	echo json_encode($content);
+	exit;
 }
+
+add_action('wp_ajax_nopriv_show_restaurant_detail', 'show_restaurant_detail');
+add_action('wp_ajax_show_restaurant_detail', 'show_restaurant_detail'); 
 
 function slider_restaurant_banner(){
 	$html = '<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
